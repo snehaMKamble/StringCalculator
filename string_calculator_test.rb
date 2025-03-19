@@ -39,9 +39,16 @@ class StringCalculatorTest < Minitest::Test
         assert_equal 5, StringCalculator.add("5,")
     end
 
-    def test_string_with_unknown_delimeter
-        exception = assert_raises(RuntimeError) { StringCalculator.add("8&5") }
-        assert_equal "Unknown delimiter found: &", exception.message
+    def test_string_has_extra_delimeter
+        assert_equal 6, StringCalculator.add("//[*][%]\n1*2%3")
+    end
+
+    def test_string_with_any_length_of_delimeter
+        assert_equal 9, StringCalculator.add("//[**][%%%]\n2**3%%%4")
+    end
+
+    def test_string_greater_than_1000
+        assert_equal 2, StringCalculator.add("1001, 2")
     end
 end
 

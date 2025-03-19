@@ -34,5 +34,14 @@ class StringCalculatorTest < Minitest::Test
         exception = assert_raises(RuntimeError) { StringCalculator.add("1,-2,3,-4") }
         assert_equal "negative numbers not allowed -2,-4", exception.message
     end
+
+    def test_string_has_comma_with_one_single_number
+        assert_equal 5, StringCalculator.add("5,")
+    end
+
+    def test_string_with_unknown_delimeter
+        exception = assert_raises(RuntimeError) { StringCalculator.add("8&5") }
+        assert_equal "Unknown delimiter found: &", exception.message
+    end
 end
 
